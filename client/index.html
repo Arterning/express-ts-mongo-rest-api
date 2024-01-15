@@ -77,6 +77,8 @@
         }
     </script>
 
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -86,10 +88,17 @@
         <button onclick="fetchUsers()">fetch users</button>
         <button onclick="logout()">logout</button>
         <button onclick="clearUsers()">Clear</button>
-        <button onclick="fetchPrint(`${baseUrl}/roles`)">getRoles</button>
+        <button onclick="fetch(`${baseUrl}/roles`).then(
+            res => res.json().then(data => {
+                //append roles after div use jquery
+                $('#data').append(JSON.stringify(data));
+            })
+        )">getRoles</button>
     </div>
-    <h2>User data</h2>
-    <div id="userData">
+    <div id="data">
+        <h2>User data</h2>
+        <div id="userData">
+        </div>
     </div>
 </body>
 
