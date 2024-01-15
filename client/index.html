@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #333;
+            padding: 10rem;
+        }
+
+        button {
+            padding: 1rem;
+            border-radius: 10px;
+        }
+    </style>
+
+    <script>
+        const a = 1;
+        const baseUrl = "http://localhost:8080";
+
+        function fetchPrint(url) {
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'cookie': document.cookie
+                }
+            }).then(res => res.json()).then(data => console.log(data));
+        }
+
+
+        function register() {
+            fetch(`${baseUrl}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: 'qJ2yA@example.com', password: '12345678', username: 'antonio' })
+            }).then(res => res.json()).then(data => console.log(data));
+        }
+
+        function login() {
+            fetch(`${baseUrl}/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: 'qJ2yA@example.com', password: '12345678' })
+            })
+        }
+
+        function logout() {
+            //clear cookie
+            document.cookie = 'ANTONIO-AUTH=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        }
+
+        function fetchUsers() {
+            fetch(`${baseUrl}/users`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('userData').innerHTML = JSON.stringify(data);
+            });
+        }
+
+        function clearUsers() {
+            console.log("clear")
+            document.getElementById('userData').innerHTML = '';
+        }
+    </script>
+
+</head>
+
+<body>
+    <div>
+        <button onclick="register()">register</button>`
+        <button onclick="login()">login</button>
+        <button onclick="fetchUsers()">fetch users</button>
+        <button onclick="logout()">logout</button>
+        <button onclick="clearUsers()">Clear</button>
+        <button onclick="fetchPrint(`${baseUrl}/roles`)">getRoles</button>
+    </div>
+    <h2>User data</h2>
+    <div id="userData">
+    </div>
+</body>
+
+</html>

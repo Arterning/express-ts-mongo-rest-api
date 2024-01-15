@@ -10,6 +10,7 @@ import mongoose from 'mongoose';
 
 const app = express();
 
+// To enable HTTP cookies over CORS
 app.use(cors({
   credentials: true,
 }));
@@ -24,7 +25,7 @@ server.listen(8080, () => {
   console.log('Server running on http://localhost:8080/');
 });
 
-const MONGO_URL = ''; // DB URI
+const MONGO_URL = 'mongodb://localhost:27017/rest-api'; // DB URI
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
